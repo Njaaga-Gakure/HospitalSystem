@@ -6,10 +6,12 @@ namespace HospitalSystem.Controllers
     public class HIMSController
     {
         private readonly PatientsController _patientsController;
+        private readonly RoomsController _roomsController;
 
         public HIMSController()
         {
             _patientsController = new PatientsController();
+            _roomsController = new RoomsController();
         }
         public void Index(HospitalContext context)
         {
@@ -21,13 +23,15 @@ namespace HospitalSystem.Controllers
                 Console.WriteLine("Press (3) to view a single patient.");
                 Console.WriteLine("Press (4) to add a patient appointment.");
                 Console.WriteLine("Press (5) to delete a patient.");
+                Console.WriteLine("Press (6) to view all rooms.");
+                Console.WriteLine("Press (7) to view a room.");
                 string? option = Console.ReadLine();
                 if (option == "q")
                 {
                     Console.WriteLine("Bye...");
                     break;
                 }
-                var options = new List<string>() { "1", "2", "3", "4", "5"};
+                var options = new List<string>() { "1", "2", "3", "4", "5", "6", "7"};
                 try
                 {
                     ValidateOptions(option, options);
@@ -58,6 +62,12 @@ namespace HospitalSystem.Controllers
                         break;
                     case "5":
                         _patientsController.DeletePatient(context);
+                        break;
+                    case "6":
+                        _roomsController.ViewAllRooms(context);
+                        break;
+                    case "7":
+                        _roomsController.ViewRoom(context);
                         break;
             }
         }

@@ -9,22 +9,20 @@ namespace HospitalSystem.Controllers
     public class PatientsController
     {
         private readonly PatientServices _patientServices;
+        private readonly RoomsController _roomController;
 
         public PatientsController()
         {
             _patientServices = new PatientServices();   
+            _roomController = new RoomsController();
         }
         public void AddPatient(HospitalContext context) {
             do {
                 Console.WriteLine("Add a Patient");
                 Console.WriteLine("--------------\n");
-                Console.WriteLine("Available Rooms\n");
-                var rooms = context.Rooms;
 
-                foreach (var room in rooms) {
-                    Console.WriteLine($"Room ID: {room.RoomID} | Room Number: {room.RoomNumber} | Room Type: {room.RoomType}");
-                }
-  
+                _roomController.ViewAllRooms(context);  
+
                 Console.WriteLine("\nTo add a patient enter first name, last name, email and room id\n");
                 Console.WriteLine("Enter Patient's first name.");
                 string? firstName = Console.ReadLine();
